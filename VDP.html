@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J4m3sbond - Terminal Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            color: limegreen;
+            font-family: 'Courier New', Courier, monospace;
+            display: block;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        #terminal {
+            background-color: #1e1e1e;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        #terminal p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            color: limegreen;
+            font-family: monospace;
+            width: 100%;
+            outline: none;
+            padding: 5px;
+            font-size: 1rem;
+        }
+
+        .typewriter {
+            display: inline-block;
+            white-space: pre;
+            overflow: hidden;
+            animation: typing 2s steps(40, end) forwards;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .yellow { color: yellow; }
+        .green { color: limegreen; }
+
+        .cmd-line {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .cmd-line span {
+            color: limegreen;
+        }
+
+        .output {
+            margin-top: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-bottom: 20px;
+        }
+
+        .cmd-line input {
+            background: #333;
+            border: 1px solid #444;
+            color: limegreen;
+            font-size: 1rem;
+            padding: 5px;
+            border-radius: 5px;
+            outline: none;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        <p class="typewriter yellow" style="animation-duration: 2s;">
++-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+ +-+-+-+-+-+-+<br>
+|Vennela| |Devarakonda|<br>
++-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+ +-+-+-+-+-+-+
+        </p>
+        <p class="typewriter green">For a 📃 of available commands, type 'help'.</p>
+        <p class="typewriter yellow">Take a 😒 at My Resume to get some 💡 about me with 'resume'.</p>
+        <p class="typewriter yellow">No amount of money ever bought a second of time.</p>
+        <p class="typewriter green"><strong>Note:</strong> Don't Hack me with 'SUDO'.</p>
+        
+        <!-- This is where the command and output will go -->
+        <div id="output" class="output"></div>
+
+        <!-- Command Input Section -->
+        <div class="cmd-line">
+            <span class="green">J4m3sb0nd@about-me:~$</span> 
+            <input type="text" id="input" autofocus placeholder="Type your command here..." />
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById("input");
+        const output = document.getElementById("output");
+        
+        // Function to simulate the typewriter effect
+        function typeWriterEffect(element, text, speed = 20) {
+            let i = 0;
+            element.innerHTML = "";
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                }
+            }
+            typing();
+        }
+        
+        const commands = {
+            whois: `\n- Security Analyst at Confidentia!🤫, Ex-Virtues Tech & .\n\n- Harbors a deep interest in Product Security, Offensive Security, and Automation.\n\n- Skills:\n\nWeb Application Pentesting\nNetwork Pentesting\nAndroid Pentesting\nAPI Pentesting\nAWS Pentesting\nBlackBox Testing\nCompliance\n\n- An Individual who volunteers in the open source communities; Lead of the SecurityBoat Community and Moderator of Hyderabad Chapter!\n\n- Actively engages in solving complex security challenges, collaborates with industry professionals, and continuously researches emerging threats and security patches.\n\n- I share my insights and knowledge through Community Meetups, focusing on security findings, vulnerability identification methodologies, and VAPT techniques.`,
+            social: `\nlinkedin       linkedin.com/in/vennela-devarakonda/\ngithub         github.com/Hacking007\ntwitter        x.com/vennelajamebond` ,
+            resume: `Opening resume...`,
+            certs: `\n1. Certified Appsec Practitioner(CAP) - The SecOps Group\n2. Certified Network Security Practitioner (CNSP) - The SecOps Group\n3. API Penetration Testing - APISec University\n4. Certified Junior Cybersecurity Analytics Pathway and achieved a badge from Cisco Networking Academy.\n5. Completed the course Ethical Hacking Essential in CodeRed from EC-Council.\n6. Darkweb Operations - Security Blue Team`,
+            exp: `\nSecurity Consultant\nConfidential                                     April 2024 - Nov 2024\n\nSecurity - Analyst Intern\nVirtues Technologies                          Jan 2024 - April 2024\n\nBug Hunter - Passive\nHackerOne, BugCrowd, YesWeHack, Com Olho   Mar 2023 - Present`,
+            experiences: `\n1. Web Application Penetration Testing\n   - Conducted comprehensive VAPT for 30 web applications, identifying and mitigating vulnerabilities such as SQL injection, XSS, and CSRF.\n   - Tools: OWASP ZAP, Burp Suite, SQLMap\n\n2. Network Penetration Testing\n   - Performed network penetration testing to identify vulnerabilities in network infrastructure, including routers, switches, and firewalls.\n   - Tools: Nmap, Metasploit, Wireshark\n\n3. Mobile Application Penetration Testing\n   - Conducted VAPT for mobile applications, focusing on Android and iOS platforms, to identify and mitigate security vulnerabilities.\n   - Tools: MobSF, Frida, Drozer\n\n4. AWS Security Testing\n   - Engaged in hands-on penetration testing using the AWS CloudGoat environment, identifying and exploiting common AWS security misconfigurations and vulnerabilities.\n   - Tools: AWS CLI, AWS Management Console, custom scripts\n\n5. Bug Bounty Hunting\n   - Actively participated in bug bounty programs on platforms like HackerOne, BugCrowd, and YesWeHack, identifying and reporting security vulnerabilities.\n   - Tools: Burp Suite, OWASP ZAP, custom scripts`,
+            history: `Command not found. For a list of commands, type 'help'.` ,
+            email: `Opening mailto:venneladevarakonda09@gmail.com...`,
+            hidden: `Command not found. For a list of commands, type 'help'.`,
+            help: `whois          About Me\n\nsocial         My Social platforms\n\nexperiences    My Experiences\n\nresume         My Resume\n\ncerts          My Certificates\n\nexp            My Experience\n\nhistory        You know what it is 🥱\n\nemail          My Email address\n\nclear          Clear terminal\n\nhidden         Hidden Commands`
+        };
+
+        function showHelp() {
+            typeWriterEffect(output, commands.help, 20);
+        }
+
+        function scrollToBottom() {
+            output.scrollTop = output.scrollHeight;
+        }
+
+        input.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                const userInput = input.value.trim();
+                input.value = "";
+                
+                // Simulate a 2-second delay before showing content
+                setTimeout(() => {
+                    if (userInput in commands) {
+                        typeWriterEffect(output, commands[userInput], 20);
+                    } else {
+                        typeWriterEffect(output, commands.history, 20);
+                        showHelp(); // Display help commands after any invalid input
+                    }
+
+                    // Ensure the output scrolls to the bottom
+                    scrollToBottom();
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
